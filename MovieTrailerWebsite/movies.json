@@ -1,0 +1,30 @@
+{
+  "movies":
+    [
+      {
+        "title": "Fight Club",
+        "poster_image_url":  "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg",
+        "trailer_youtube_url": "https://www.youtube.com/watch?v=SUXWAEX2jlg"
+      },
+      {
+        "title": "Hunt For The Wilderpeople",
+        "poster_image_url": "http://t3.gstatic.com/images?q=tbn:ANd9GcRjK0fmkPCBFYyKym4eQkNx9oS54TWJHGkFwNX37hOewfHTDPBG",
+        "trailer_youtube_url": "https://www.youtube.com/watch?v=dPaU4Gymt3E&t=6s"
+      },
+      {
+        "title": "What We Do In The Shadows",
+        "poster_image_url": "http://t1.gstatic.com/images?q=tbn:ANd9GcTb1oWD0EwTDmLFAu0i1IIgAQLSCITuuVeExzzWpIE14xiVm1B7",
+        "trailer_youtube_url": "https://www.youtube.com/watch?v=Cv568AzZ-i8"
+      },
+      {
+        "title": "Lord Of The Rings",
+        "poster_image_url": "http://www.gstatic.com/tv/thumb/movieposters/28828/p28828_p_v8_as.jpg",
+        "trailer_youtube_url": "https://www.youtube.com/watch?v=V75dMMIW2B4"
+      },
+      {
+        "title": "The Matrix",
+        "poster_image_url": "http://t0.gstatic.com/images?q=tbn:ANd9GcQq3pIz-aKgkmYX1dJ-EL-AlHSPcOO7wdqRIJ5gJy9qNinXpmle",
+        "trailer_youtube_url": "https://www.youtube.com/watch?v=m8e-FF8MsqU"
+      }
+    ]
+}
