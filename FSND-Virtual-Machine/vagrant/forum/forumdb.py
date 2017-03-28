@@ -20,7 +20,7 @@ def GetAllPosts():
 
     DB = psycopg2.connect("dbname=forum")
     cu = DB.cursor()
-    cu.excute("SELECT time, content FROM posts ORDER BY time DESC")
+    cu.execute("SELECT time, content FROM posts ORDER BY time DESC")
     post = ({'content': str(row[1]), 'time': str(row[0])} for row in cu.fetchall())
     DB.close()
     return posts
@@ -34,6 +34,6 @@ def AddPost(content):
     '''
     DB = psycopg2.connect("dbname=forum")
     cu = DB.cursor()
-    cu.excute("INSERT INTO forum (content) VALUES (%s)", (content,))
+    cu.execute("INSERT INTO forum (content) VALUES (%s)", (content,))
     DB.commit()
     DB.close()
