@@ -4,43 +4,45 @@
 #
 
 import psycopg2
+import traceback
+from functools import partial
 
 
-def connect():
-    """Connect to the PostgreSQL database.  Returns a database connection."""
-    return psycopg2.connect("dbname=tournament")
+def connectionSafe(safe_func, database_name="tournament"):
+    """Connect to the PostgreSQL database.
+
+    Args:
+        safe_func (func): a function with params db, cursor that
+            runs sql statements on the database
+        database_name: the database to connect to
+
+    Returns:
+        The sql results from the safe_func or None 
+    """
+
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        cursor = db.cursor()
+        results = safe_func(db, cursor)
+        db.close()
+        return results
+    except:
+        print(traceback.format_exc())
 
 
 def deleteMatches():
     """Remove all the match records from the database."""
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("DELETE FROM matches")
-    DB.commit()
-    DB.close()
-
+    connectionSafe(__deleteMatchesSafe)
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("DELETE FROM players")
-    DB.commit()
-    DB.close()
+    connectionSafe(__deletePlayersSafe)
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("SELECT COUNT(*) FROM players")
-    count = cursor.fetchone()[0]
-    DB.close()
-    return count
+    return connectionSafe(__countPlayersSafe)
 
 
 def registerPlayer(name):
@@ -52,19 +54,14 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("INSERT INTO players (name) VALUES (%s)", (name, ))
-    DB.commit()
-    DB.close()
+    connectionSafe(partial(__registerPlayerSafe, name))
 
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
-    The first entry in the list should be the player in first place, or a player
-    tied for first place if there is currently a tie.
+    The first entry in the list should be the player in first place,
+    or a player tied for first place if there is currently a tie.
 
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
@@ -73,32 +70,17 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("SELECT * FROM standings")
-    results = cursor.fetchall()
-    DB.commit()
-    DB.close()
-    return results
+    return connectionSafe(__playerStandingsSafe)
 
 
-def reportMatch(winner, loser, round=0):
+def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
 
     Args:
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-
-    DB = connect()
-    cursor = DB.cursor()
-    cursor.execute("INSERT INTO matches (round) VALUES (%s) RETURNING id", (round, ))
-    new_match_id = cursor.fetchone()[0]
-    cursor.execute("INSERT INTO match_results VALUES (%s,%s,%s)", (winner, new_match_id, True))
-    cursor.execute("INSERT INTO match_results VALUES (%s,%s,%s)", (loser, new_match_id, False))
-    DB.commit()
-    DB.close()
+    connectionSafe(partial(__reportMatchSafe, winner, loser))
 
 
 def swissPairings():
@@ -116,7 +98,106 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
     standings = playerStandings()
-    results = [ standings[i][:2] + standings[i + 1][:2] for i in xrange(0, len(standings), 2) ]
+    results = [standings[i][:2] + standings[i + 1][:2]
+               for i in xrange(0, len(standings), 2)]
     return results
+
+
+# Safe functions are meant to be past as args to connectionSafe methods
+
+def __deleteMatchesSafe(db, cursor):
+    """Truncates the matches table safely
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        db: the db connection
+        cursor: the db cursor
+    """
+    cursor.execute("TRUNCATE matches CASCADE")
+    db.commit()
+
+
+def __deletePlayersSafe(db, cursor):
+    """Truncates the players table safely
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        db: the db connection
+        cursor: the db cursor
+    """
+    cursor.execute("TRUNCATE players CASCADE")
+    db.commit()
+
+
+def __countPlayersSafe(db, cursor):
+    """Counts the players that have been registered
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        db: the db connection
+        cursor: the db cursor
+
+    Return:
+        int: number of players in the players table
+    """
+    cursor.execute("SELECT COUNT(*) FROM players")
+    return cursor.fetchone()[0]
+
+
+def __registerPlayerSafe(name, db, cursor):
+    """Registers a single player
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        name: the name of the player
+        db: the db connection
+        cursor: the db cursor
+    """
+    sql = "INSERT INTO players (name) VALUES (%s)"
+    params = (name, )
+    cursor.execute(sql, params)
+    db.commit()
+
+
+def __playerStandingsSafe(db, cursor):
+    """Gets the standings from the standings view
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        db: the db connection
+        cursor: the db cursor
+
+    Return:
+        A list of tuples, each of which contains (id, name, wins, matches)
+    """
+    cursor.execute("SELECT * FROM standings")
+    return cursor.fetchall()
+
+
+def __reportMatchSafe(winner, loser, db, cursor):
+    """Registers a single match
+
+    This function should only be run within the connectionSafe function
+    to catch any connection errors or database errors
+
+    Args:
+        winner:  the id number of the player who won
+        loser:  the id number of the player who lost
+        db: the db connection
+        cursor: the db cursor
+    """
+    sql = "INSERT INTO matches (winner, loser) VALUES (%s,%s)"
+    params = (winner, loser)
+    cursor.execute(sql, params)
+    db.commit()
