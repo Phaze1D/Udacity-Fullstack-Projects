@@ -7,7 +7,8 @@ from sqlalchemy.orm import relationship
 class Catalog(Base):
     __tablename__ = 'catalog'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    created = Column(DateTime, default=func.now())
-    items = relationship("Item", back_populates="catalog")
+    id          = Column(Integer, primary_key=True)
+    name        = Column(String(250), unique=True, nullable=False)
+    description = Column(String(250), nullable=False)
+    created     = Column(DateTime, default=func.now())
+    items       = relationship("Item", back_populates="catalog")

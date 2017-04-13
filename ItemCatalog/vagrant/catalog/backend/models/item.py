@@ -7,10 +7,11 @@ from sqlalchemy.orm import relationship
 class Item(Base):
     __tablename__ = 'item'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    created = Column(DateTime, default=func.now())
-    catalog_id = Column(Integer, ForeignKey('catalog.id'))
-    user_id = Column(Integer, ForeignKey('user.id'))
-    catalog = relationship("Catalog", back_populates="items")
-    user = relationship("User", back_populates="items")
+    id          = Column(Integer, primary_key=True)
+    name        = Column(String(250), unique=True, nullable=False)
+    description = Column(String(250), nullable=False)
+    created     = Column(DateTime, default=func.now())
+    catalog_id  = Column(Integer, ForeignKey('catalog.id'))
+    user_id     = Column(Integer, ForeignKey('user.id'))
+    catalog     = relationship("Catalog", back_populates="items")
+    user        = relationship("User", back_populates="items")
