@@ -1,1 +1,1 @@
-from database import Base, create_schema, connect
+from database import Base, Session, create_schema, connect

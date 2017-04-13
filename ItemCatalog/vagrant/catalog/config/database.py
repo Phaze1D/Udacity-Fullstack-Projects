@@ -6,10 +6,10 @@ from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///item_catalog', echo=True)
 Base = declarative_base()
-session = None
+Session = None
 
 def create_schema():
     Base.metadata.create_all(engine)
 
 def connect():
-    session = sessionmaker(bind=engine)
+    Session = sessionmaker(bind=engine)
