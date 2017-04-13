@@ -5,12 +5,13 @@ catalogs_app = Blueprint('catalogs', __name__)
 
 @catalogs_app.route('/catalogs')
 def index():
-    return 'index catalogs'
+    catalogs = []
+    return render_template('catalogs/index.html', catalogs=catalogs)
 
 
 @catalogs_app.route('/catalog')
 def create():
-    return 'create catalog'
+    return render_template('catalogs/create.html')
 
 
 @catalogs_app.route('/catalog', methods=['POST'])
@@ -20,7 +21,8 @@ def new():
 
 @catalogs_app.route('/catalog/<id>/edit')
 def edit(id):
-    return 'edit catalog'
+    catalog={}
+    return render_template('catalogs/edit.html', catalog=catalog)
 
 
 @catalogs_app.route('/catalog/<id>/edit', methods=['POST'])
@@ -30,7 +32,8 @@ def update(id):
 
 @catalogs_app.route('/catalog/<id>')
 def get(id):
-    return 'get catalog'
+    catalog={}
+    return render_template('catalogs/get.html', catalog=catalog)
 
 
 @catalogs_app.route('/catalog/<id>', methods=['DELETE'])
