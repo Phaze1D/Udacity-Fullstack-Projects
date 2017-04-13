@@ -1,1 +1,1 @@
-from database import Base, create_all, connect
+from database import Base, create_schema, connect

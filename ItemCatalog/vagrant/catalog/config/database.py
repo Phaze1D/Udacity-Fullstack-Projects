@@ -8,7 +8,7 @@ engine = create_engine('sqlite:///item_catalog', echo=True)
 Base = declarative_base()
 session = None
 
-def create_all():
+def create_schema():
     Base.metadata.create_all(engine)
 
 def connect():
