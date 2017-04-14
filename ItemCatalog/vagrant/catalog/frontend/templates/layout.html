@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Items Catalog</title>
+    <meta name="description" content="A sport catalog website">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="google-signin-client_id" content="656484057058-a1shkn8ka0qser9e62nn0m33iobl7nca.apps.googleusercontent.com">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+  </head>
+  <body>
+
+    <header>
+      <button class="" id="signinButton">Sign in with Google</button>
+      <button class="" id="logoutButton">Logout</button>
+    </header>
+
+    {% block body %}{% endblock %}
+
+    <script src="{{url_for('static', filename='js/google.js')}}" charset="utf-8"></script>
+  </body>
+</html>
