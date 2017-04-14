@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="">
+  Edit Catalog
+  <form class="" action="{{url_for('catalogs.update', id=catalog.id)}}" method="post">
+    <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+    <label for="name">
+      Name
+      <input type="text" name="name" value="{{catalog.name}}">
+    </label>
+
+    <label for="description">
+      Description
+      <input type="text" name="description" value="{{catalog.description}}">
+    </label>
+  </form>
+</div>
+
+{% endblock %}
