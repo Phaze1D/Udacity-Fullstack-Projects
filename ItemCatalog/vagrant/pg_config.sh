@@ -7,6 +7,7 @@ pip install appdirs
 pip install -U six
 pip install bleach
 pip install oauth2client
+pip install -U google-api-python-client
 pip install requests
 pip install httplib2
 pip install redis
