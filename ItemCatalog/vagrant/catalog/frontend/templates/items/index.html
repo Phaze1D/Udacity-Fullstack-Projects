@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="">
+  <h2>{{catalog.name}}</h2>
+  <p>{{catalog.description}}</p>
+
+  <section>
+    <h3>Items</h3>
+    <ul>
+      {% for item in items %}
+        <li>
+          <a href="{{url_for('items.get', id=item.id)}}">{{ item.name }}</a>
+          <p>Created <span>{{item.created}}</span></p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+
+{% endblock %}
