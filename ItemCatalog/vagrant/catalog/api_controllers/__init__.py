@@ -1,2 +1,0 @@
-from catalogs_api_controller import catalogs_api_app
-from items_api_controller import items_api_app
