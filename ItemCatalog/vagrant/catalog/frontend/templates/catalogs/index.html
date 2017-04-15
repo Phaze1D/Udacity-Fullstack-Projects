@@ -2,7 +2,17 @@
 {% block body %}
 
 <div class="">
-  Index Catalog
+  <h1>Catalogs</h1>
+  <a href="{{url_for('catalogs.create')}}">Add Catalog</a>
+  <ul>
+    {% for catalog in catalogs %}
+      <li>
+        <a href="{{url_for('catalogs.get', id=catalog.id)}}">{{ catalog.name }}</a>
+        <a href="{{url_for('catalogs.edit', id=catalog.id)}}">Edit</a>
+      </li>
+    {% endfor %}
+  </ul>
+
 </div>
 
 {% endblock %}
