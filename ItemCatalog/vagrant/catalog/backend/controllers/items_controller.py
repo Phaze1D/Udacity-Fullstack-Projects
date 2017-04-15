@@ -1,5 +1,9 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, request
+from backend.models import Item
+from backend.models import Catalog
+from backend.helpers import check_csrf, login_required, current_user
 
+import logging
 
 items_app = Blueprint('items', __name__)
 
@@ -12,14 +16,33 @@ def index(catalog_id):
 
 
 @items_app.route('/item')
-def create():
-    catalogs = []
-    return render_template('items/create.html', catalogs=catalogs)
+@items_app.route('/catalog/<catalog_id>/item')
+def create(catalog_id=None):
+    catalogs = ([Catalog.find_by_id(catalog_id)] if catalog_id
+                else Catalog.get_all())
+    return render_template( 'items/create.html',
+                            item=None, error='', catalogs=catalogs)
 
 
 @items_app.route('/item', methods=['POST'])
+@check_csrf
+@login_required
 def new():
-    return 'new item'
+    form = request.form
+    logging.warning('bbbbb')
+    catalogs = Catalog.get_all()
+    logging.warning('aaaaaa')
+    item, error = Item.create( name=form.get('name'),
+                        description=form.get('description'),
+                        catalog=Catalog.find_by_id(form.get('catalog_id')),
+                        user=current_user())
+    if error:
+        return render_template('items/create.html',
+                                item=request.form,
+                                catalogs=catalogs,
+                                error=error)
+    else:
+        return redirect(url_for('catalogs.get', item.catalog_id))
 
 
 @items_app.route('/item/<id>/edit')
@@ -30,6 +53,8 @@ def edit(id):
 
 
 @items_app.route('/item/<id>/edit', methods=['POST'])
+@check_csrf
+@login_required
 def update(id):
     return 'update item'
 
