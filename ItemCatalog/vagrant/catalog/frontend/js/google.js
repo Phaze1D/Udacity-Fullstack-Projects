@@ -33,7 +33,9 @@ function signInCallback(csrf_token, authResult) {
       },
       contentType: false,
       success: function(result) {
-        // Handle or verify the server response.
+        $("[name='_csrf_token']").val(result.csrf_token)
+        $('#logoutForm').css('display', 'block')
+        $('#signinForm').css('display', 'none')
       },
       processData: false,
       data: data
@@ -51,6 +53,26 @@ $('#signinForm').on('submit', function(event) {
 });
 
 
-$('#logoutButton').on('click', function(event) {
-  signOut()
+$('#logoutForm').on('submit', function(event) {
+  event.preventDefault()
+  var csrf_token = $(this).find("[name='_csrf_token']").val()
+  let data = new FormData();
+  data.append('_csrf_token', csrf_token)
+
+  $.ajax({
+    type: 'POST',
+    url: '/logout',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    contentType: false,
+    success: function(result) {
+      $("[name='_csrf_token']").val(result.csrf_token)
+      signOut()
+      $('#logoutForm').css('display', 'none')
+      $('#signinForm').css('display', 'block')
+    },
+    processData: false,
+    data: data
+  });
 });

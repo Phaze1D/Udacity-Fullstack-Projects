@@ -13,11 +13,16 @@
   <body>
 
     <header>
-      <form id="signinForm"class="" action="none" method="post">
+      <form id="logoutForm" style="display: {{ 'display' if is_login() else 'none' }}" action="none" method="post">
+        <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+        <input type="submit" name="" value="logout">
+      </form>
+      <form id="signinForm" style="display: {{ 'none' if is_login() else 'display' }}" action="none" method="post">
         <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
         <input type="submit" name="" value="Sign in with Google">
       </form>
-      <button class="" id="logoutButton">Logout</button>
+
+
     </header>
 
     {% block body %}{% endblock %}
