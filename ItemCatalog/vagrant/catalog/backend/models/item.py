@@ -56,3 +56,31 @@ class Item(Base):
             DBSession.rollback()
             error = str(e)
         return item, error
+
+    @classmethod
+    def edit(cls, id, name, description, catalog):
+        item = None
+        error = None
+        try:
+            item = cls.find_by_id(id)
+            item.name = name
+            item.description = description
+            item.catalog = catalog
+            DBSession.commit()
+        except Exception as e:
+            DBSession.rollback()
+            error = str(e)
+        return item, error
+
+    @classmethod
+    def find_by_id(cls, id):
+        return DBSession.query(cls).filter(cls.id == id).first()
+
+    @classmethod
+    def get_all(cls):
+        return DBSession.query(cls).all()
+
+    @classmethod
+    def delete(cls, item):
+        DBSession.delete(item)
+        DBSession.commit()
