@@ -11,7 +11,7 @@
       <li>
         <a href="{{url_for('items.get', id=item.id)}}">{{ item.name }}</a>
 
-        {% if current_user().id == item.user_id %}
+        {% if session.get('user') == item.user_id %}
         <a href="{{url_for('items.edit', id=item.id)}}">Edit</a>
         <a href="{{url_for('items.delete', id=item.id)}}">Delete</a>
         {% endif %}
