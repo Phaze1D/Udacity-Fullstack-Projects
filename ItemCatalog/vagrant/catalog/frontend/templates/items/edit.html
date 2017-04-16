@@ -2,7 +2,7 @@
 {% block body %}
 
 <div class="">
-  Edit Item
+  <h1>Edit Item</h1>
   <form class="" action="{{url_for('items.update', id=item.id)}}" method="post">
     <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <label for="name">
@@ -12,20 +12,24 @@
 
     <label for="description">
       Description
-      <input type="text" name="description" value="{{item.description}}">
+      <textarea type="text" name="description">{{item.description}}</textarea>
     </label>
 
     <label for="catalog">
       Catalog
-      <select class="" name="catalog">
+      <select class="" name="catalog_id">
         {% for catalog in catalogs %}
-          <option value="{{catalog.id}}">{{catalog.name}}</option>
+          <option value="{{catalog.id}}" {{ "selected='true'" if catalog.id == item.catalog_id else '' }}>
+            {{catalog.name}}
+          </option>
         {% endfor %}
       </select>
     </label>
-
-    <input type="submit" name="" value="Create">
+    <p>{{error}}</p>
+    <input type="submit" name="" value="Save">
   </form>
+
+    <a href="{{url_for('items.index')}}">Cancel</a>
 </div>
 
 {% endblock %}
