@@ -2,16 +2,21 @@
 {% block body %}
 
 <div class="">
-  <h2>{{catalog.name}}</h2>
-  <p>{{catalog.description}}</p>
-
+  <a href="{{url_for('catalogs.index')}}">All Catalogs</a>
   <section>
-    <h3>Items</h3>
+    <h1>Items</h1>
+    <a href="{{url_for('items.create')}}">Add Item</a>
     <ul>
       {% for item in items %}
         <li>
           <a href="{{url_for('items.get', id=item.id)}}">{{ item.name }}</a>
-          <p>Created <span>{{item.created}}</span></p>
+          {% if session.get('user') == item.user_id %}
+          -
+          <a href="{{url_for('items.edit', id=item.id)}}">Edit</a>
+          <a href="{{url_for('items.delete', id=item.id)}}">Delete</a>
+          {% endif %}
+          - Catalog:
+          <a href="{{url_for('catalogs.get', id=item.catalog_id)}}"><i>{{item.catalog.name}}</i></a>
         </li>
       {% endfor %}
     </ul>
