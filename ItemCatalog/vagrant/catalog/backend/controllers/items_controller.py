@@ -29,16 +29,16 @@ def create(catalog_id=None):
 @login_required
 def new():
     form = request.form
-    logging.warning('bbbbb')
     catalogs = Catalog.get_all()
-    logging.warning('aaaaaa')
-    item, error = Item.create( name=form.get('name'),
-                        description=form.get('description'),
-                        catalog=Catalog.find_by_id(form.get('catalog_id')),
-                        user=current_user())
+    item, error = Item.create(  name=form.get('name'),
+                                description=form.get('description'),
+                                catalog=Catalog.find_by_id(form.get('catalog_id')),
+                                user=current_user())
     if error:
+        item = form.to_dict()
+        item['catalog_id'] = int(form.get('catalog_id'))
         return render_template('items/create.html',
-                                item=request.form,
+                                item=item,
                                 catalogs=catalogs,
                                 error=error)
     else:

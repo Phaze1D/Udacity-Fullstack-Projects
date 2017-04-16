@@ -12,14 +12,14 @@
 
     <label for="description">
       Description
-      <input type="text" name="description" value="{{item.description}}">
+      <textarea type="text" name="description">{{item.description}}</textarea>
     </label>
 
     <label for="catalog">
       Catalog
       <select class="" name="catalog_id">
         {% for catalog in catalogs %}
-          <option value="{{catalog.id}}" {{ "selected" if catalog.id == item.catalog_id else '' }}>
+          <option value="{{catalog.id}}" {{ "selected='true'" if catalog.id == item.catalog_id else '' }}>
             {{catalog.name}}
           </option>
         {% endfor %}
