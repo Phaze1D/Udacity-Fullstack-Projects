@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort, request
 from backend.models import Item
 from backend.models import Catalog
+from backend.helpers import check_csrf, login_required, current_user, item_exists, item_belongs
 from backend.helpers import check_csrf, login_required, current_user
 
 import logging
@@ -46,6 +47,8 @@ def new():
 
 
 @items_app.route('/item/<id>/edit')
+@item_exists
+@item_belongs
 def edit(id):
     catalogs = []
     item={}
@@ -55,16 +58,21 @@ def edit(id):
 @items_app.route('/item/<id>/edit', methods=['POST'])
 @check_csrf
 @login_required
+@item_exists
+@item_belongs
 def update(id):
     return 'update item'
 
 
 @items_app.route('/item/<id>')
+@item_exists
 def get(id):
     item={}
     return render_template('items/get.html', item=item)
 
 
 @items_app.route('/item/<id>', methods=['DELETE'])
+@item_exists
+@item_belongs
 def delete(id):
     return 'detele item'
