@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, abort, request, jsonify, redirect,
 from backend.models import Item
 from backend.models import Catalog
 from backend.helpers import check_csrf, login_required, catalog_exists
-from backend.helpers import check_csrf, login_required
 
 import logging
 
@@ -22,7 +21,6 @@ def create():
 
 @catalogs_app.route('/catalog', methods=['POST'])
 @check_csrf
-@login_required
 def new():
     catalog, error = Catalog.create(name=request.form.get('name'))
     if error:
@@ -40,10 +38,9 @@ def edit(id):
     return render_template('catalogs/edit.html', catalog=catalog)
 
 
-@catalogs_app.route('/catalog/<id>/edit', methods=['POST'])
+@catalogs_app.route('/catalog/<id>/update', methods=['POST'])
 @check_csrf
 @catalog_exists
-@login_required
 def update(id):
     catalog, error = Catalog.edit(id=id, name=request.form.get('name'))
     if error:
