@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort, request, jsonify, redirect, url_for
 from backend.models import Item
 from backend.models import Catalog
+from backend.helpers import check_csrf, login_required, catalog_exists
 from backend.helpers import check_csrf, login_required
 
 import logging
@@ -33,6 +34,7 @@ def new():
 
 
 @catalogs_app.route('/catalog/<id>/edit')
+@catalog_exists
 def edit(id):
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/edit.html', catalog=catalog)
@@ -40,6 +42,7 @@ def edit(id):
 
 @catalogs_app.route('/catalog/<id>/edit', methods=['POST'])
 @check_csrf
+@catalog_exists
 @login_required
 def update(id):
     catalog, error = Catalog.edit(id=id, name=request.form.get('name'))
@@ -52,6 +55,7 @@ def update(id):
 
 
 @catalogs_app.route('/catalog/<id>')
+@catalog_exists
 def get(id):
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/get.html', catalog=catalog, items=catalog.items)
