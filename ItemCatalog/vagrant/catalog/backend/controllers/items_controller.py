@@ -44,7 +44,7 @@ def new():
 
 @items_app.route('/item/<id>/edit')
 @login_required
-@item_exists
+@item_exists()
 @item_belongs
 def edit(id):
     catalogs = Catalog.get_all()
@@ -55,7 +55,7 @@ def edit(id):
 @items_app.route('/item/<id>/update', methods=['POST'])
 @check_csrf
 @login_required
-@item_exists
+@item_exists()
 @item_belongs
 def update(id):
     form = request.form
@@ -78,7 +78,7 @@ def update(id):
 
 
 @items_app.route('/item/<id>')
-@item_exists
+@item_exists()
 def get(id):
     item=Item.find_by_id(id)
     return render_template('items/get.html', item=item)
@@ -87,7 +87,7 @@ def get(id):
 @items_app.route('/item/<id>/delete', methods=['POST', 'GET'])
 @check_csrf
 @login_required
-@item_exists
+@item_exists()
 @item_belongs
 def delete(id):
     item=Item.find_by_id(id)

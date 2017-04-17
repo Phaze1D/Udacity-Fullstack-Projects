@@ -12,7 +12,7 @@ def index():
 
 
 @items_api_app.route('/api/item/<id>')
-@item_exists
+@item_exists(json=True)
 def get(id):
     item=Item.find_by_id(id)
     return jsonify(item.to_json())

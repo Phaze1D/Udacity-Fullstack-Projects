@@ -31,7 +31,7 @@ def new():
 
 
 @catalogs_app.route('/catalog/<id>/edit')
-@catalog_exists
+@catalog_exists()
 def edit(id):
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/edit.html', catalog=catalog)
@@ -39,7 +39,7 @@ def edit(id):
 
 @catalogs_app.route('/catalog/<id>/update', methods=['POST'])
 @check_csrf
-@catalog_exists
+@catalog_exists()
 def update(id):
     catalog, error = Catalog.edit(id=id, name=request.form.get('name'))
     if error:
@@ -51,7 +51,7 @@ def update(id):
 
 
 @catalogs_app.route('/catalog/<id>')
-@catalog_exists
+@catalog_exists()
 def get(id):
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/get.html', catalog=catalog, items=catalog.items)

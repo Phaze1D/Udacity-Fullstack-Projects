@@ -15,7 +15,7 @@ def index():
 
 
 @catalogs_api_app.route('/api/catalog/<id>')
-@catalog_exists
+@catalog_exists(json=True)
 def get(id):
     catalog = Catalog.find_by_id(id)
     return jsonify(catalog.to_json())
