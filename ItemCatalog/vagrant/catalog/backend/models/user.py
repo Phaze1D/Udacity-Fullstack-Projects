@@ -10,6 +10,7 @@ class User(Base):
     email = Column(String(250), unique=True, nullable=False)
     created = Column(DateTime, default=func.now())
     items = relationship("Item", back_populates="user")
+    catalogs = relationship("Catalog", back_populates="user")
 
     @classmethod
     def find_by_email(cls, email):

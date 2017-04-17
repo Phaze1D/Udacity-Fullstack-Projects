@@ -10,6 +10,8 @@ class Catalog(Base):
     id      = Column(Integer, primary_key=True)
     name    = Column(String(250), unique=True, nullable=False)
     created = Column(DateTime, default=func.now())
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user    = relationship("User", back_populates="catalogs", foreign_keys=[user_id])
     items   = relationship("Item", back_populates="catalog")
 
 
@@ -45,13 +47,25 @@ class Catalog(Base):
         return name
 
 
+    @validates('user')
+    def validates_user(self, key, user):
+        """Validates the user field before update and create
+
+        Raises:
+            Exception: if user is not found
+        """
+        if not user:
+            raise Exception('user not found')
+        return user
+
+
     @classmethod
-    def create(cls, name):
+    def create(cls, name, user):
         """Creates and saves a new catalog"""
         catalog = None
         error = None
         try:
-            catalog = cls(name=name)
+            catalog = cls(name=name, user=user)
             DBSession.add(catalog)
             DBSession.commit()
         except Exception as e:

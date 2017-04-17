@@ -4,11 +4,18 @@ Project for [Udacity Fullstack Nanodegree](https://www.udacity.com/course/full-s
 
 
 ### Getting Started
-This project uses vagrant to install all dependencies but you have to have virtualbox install to run the vagrant file. After installing vagrant and virtualbox run theses commands inside this directory and open your browers to `localhost:8080`
+This project uses vagrant to install all dependencies but you have to have virtualbox install to run the vagrant file. After installing vagrant and virtualbox run theses commands inside this directory
 ```
 $ vagrant up
 $ vagrant ssh  
 ```
+This should install all the dependencies that are necessary and to start the application run these commands
+```
+$ cd /vagrant/catalog
+$ python application.py
+```  
+This should create a new item_catalog file which is a in-memory sqlite database with the correct empty tables. Now you can open your browser at `localhost:8080` and start to populate the database. You must be logged in to create a catalog or a item 
+
 
 ### Catalogs Routes
 ```

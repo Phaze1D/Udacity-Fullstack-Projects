@@ -43,7 +43,6 @@ def item_belongs(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         item = Item.find_by_id(kwargs.get('id'))
-        logging.warning(session.get('user'))
         if item.user_id is not session.get('user'):
             flash('Unauthorized')
             return redirect(url_for('items.index'))

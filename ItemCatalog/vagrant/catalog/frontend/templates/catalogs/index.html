@@ -12,7 +12,9 @@
     {% for catalog in catalogs %}
       <li>
         <a href="{{url_for('catalogs.get', id=catalog.id)}}">{{ catalog.name }}</a>
+        {% if session.get('user') == catalog.user_id %}
         <a href="{{url_for('catalogs.edit', id=catalog.id)}}">Edit</a>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>

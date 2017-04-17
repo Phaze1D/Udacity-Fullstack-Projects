@@ -28,3 +28,22 @@ def catalog_exists(json=False):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
+
+
+def catalog_belongs(f):
+    """ Decorator function that checks if a catalog id belongs to the current user
+
+    Note:
+        Function should be use whenever a catalog id is pass
+
+    Returns:
+        A redirect with a flash if catalog does not belong to the current user
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        item = Catalog.find_by_id(kwargs.get('id'))
+        if item.user_id is not session.get('user'):
+            flash('Unauthorized')
+            return redirect(url_for('catalogs.index'))
+        return f(*args, **kwargs)
+    return decorated_function
