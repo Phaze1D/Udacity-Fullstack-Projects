@@ -7,10 +7,23 @@ import logging
 class Catalog(Base):
     __tablename__ = 'catalog'
 
-    id          = Column(Integer, primary_key=True)
-    name        = Column(String(250), unique=True, nullable=False)
-    created     = Column(DateTime, default=func.now())
-    items       = relationship("Item", back_populates="catalog")
+    id      = Column(Integer, primary_key=True)
+    name    = Column(String(250), unique=True, nullable=False)
+    created = Column(DateTime, default=func.now())
+    items   = relationship("Item", back_populates="catalog")
+
+
+    def to_json(self, show_items=True):
+        json = {
+            'id': self.id,
+            'name': self.name,
+            'created': self.created
+        }
+
+        if show_items:
+            json['items'] = [ item.to_json(show_catalog=False) for item in self.items]
+
+        return json
 
 
     @validates('name')
@@ -18,7 +31,6 @@ class Catalog(Base):
         if len(name) < 3:
             raise Exception("Name must be atleast 3 chars")
         return name
-
 
     @classmethod
     def create(cls, name):

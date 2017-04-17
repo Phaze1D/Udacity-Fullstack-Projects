@@ -17,6 +17,31 @@ class Item(Base):
     user        = relationship("User", back_populates="items", foreign_keys=[user_id])
 
 
+    def to_json(self, show_user=True, show_catalog=True):
+        json = {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'created': self.created,
+        }
+
+        if show_user:
+            json['user'] = {
+                'id': self.user.id,
+                'email': self.user.email,
+                'created': self.user.created
+            }
+
+        if show_catalog:
+            json['catalog'] = {
+                'id': self.catalog.id,
+                'name': self.catalog.name,
+                'created': self.catalog.created
+            }
+
+        return json
+
+
     @validates('name')
     def validates_name(self, key, name):
         if not name or len(name) < 3:
