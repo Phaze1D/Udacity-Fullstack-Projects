@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from backend.controllers import catalogs_app, items_app, users_app
 from backend.api_controllers import catalogs_api_app, items_api_app
 from backend.config import create_schema
@@ -23,7 +23,7 @@ create_schema()
 
 @app.route("/")
 def root():
-    return "Hello World!"
+    return redirect(url_for('catalogs.index'))
 
 
 
