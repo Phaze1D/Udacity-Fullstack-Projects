@@ -2,7 +2,7 @@
 {% block body %}
 
 <div class="">
-  <h1>{{item.name}}</h1>
+  <h3>{{item.name}}</h3>
   <p>{{item.description}}</p>
 
   {% if session.get('user') == item.user_id %}

@@ -2,7 +2,7 @@
 {% block body %}
 
 <div class="">
-  <h1>Edit Item</h1>
+  <h3>Edit Item</h3>
   <form class="" action="{{url_for('items.update', id=item.id)}}" method="post">
     <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <div class="row">

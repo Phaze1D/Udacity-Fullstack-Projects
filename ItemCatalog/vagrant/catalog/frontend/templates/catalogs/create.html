@@ -2,7 +2,7 @@
 {% block body %}
 
 <div class="">
-  <h1>Create Catalog</h1>
+  <h3>Create Catalog</h3>
   <form class="" action="{{url_for('catalogs.new')}}" method="post">
     <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <label for="name"> Name</label>

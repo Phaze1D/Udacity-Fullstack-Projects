@@ -3,16 +3,18 @@
 
 <div class="">
   <div class="upper">
-    <h1>Items</h1>
+    <h3>Items</h3>
     <a class="button button-primary" href="{{url_for('items.create')}}">Add Item</a>
   </div>
   <ul>
     {% for item in items %}
       <li>
         <a href="{{url_for('items.get', id=item.id)}}">{{ item.name }}</a>
-        (
-        <a href="{{url_for('catalogs.get', id=item.catalog_id)}}"><i>{{item.catalog.name}}</i></a>
-        )
+        <div class="sub-title">
+          (
+          <a href="{{url_for('catalogs.get', id=item.catalog_id)}}"><i>{{item.catalog.name}}</i></a>
+          )
+        </div>
       </li>
     {% endfor %}
   </ul>
