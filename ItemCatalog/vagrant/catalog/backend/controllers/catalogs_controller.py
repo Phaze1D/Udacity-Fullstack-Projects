@@ -3,7 +3,6 @@ from backend.models import Item
 from backend.models import Catalog
 from backend.helpers import check_csrf, login_required, catalog_exists
 
-import logging
 
 catalogs_app = Blueprint('catalogs', __name__)
 

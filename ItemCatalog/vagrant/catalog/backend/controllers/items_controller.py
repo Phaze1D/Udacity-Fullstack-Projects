@@ -3,12 +3,10 @@ from backend.models import Item
 from backend.models import Catalog
 from backend.helpers import check_csrf, login_required, current_user, item_exists, item_belongs
 
-import logging
-
 items_app = Blueprint('items', __name__)
 
 @items_app.route('/items')
-def index(catalog_id=None):
+def index():
     items = Item.get_all()
     return render_template('items/index.html', items=items)
 

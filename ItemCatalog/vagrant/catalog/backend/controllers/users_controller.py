@@ -4,7 +4,6 @@ from oauth2client import client
 from backend.models import User
 from backend.helpers import login, check_csrf, generate_csrf_token
 import httplib2
-import logging
 
 
 users_app = Blueprint('users', __name__)
