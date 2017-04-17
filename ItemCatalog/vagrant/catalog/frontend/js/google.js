@@ -14,16 +14,11 @@ function signOut() {
   });
 }
 
-
-
 function signInCallback(csrf_token, authResult) {
   if (authResult['code']) {
-
-    // $('#signinButton').attr('style', 'display: none');
-
     let data = new FormData();
-    data.append('code', authResult['code'])
-    data.append('_csrf_token', csrf_token)
+    data.append('code', authResult['code']);
+    data.append('_csrf_token', csrf_token);
 
     $.ajax({
       type: 'POST',
@@ -38,25 +33,21 @@ function signInCallback(csrf_token, authResult) {
       processData: false,
       data: data
     });
-  } else {
-    // There was an error.
   }
 }
 
-
 $('#signinForm').on('submit', function(event) {
-  event.preventDefault()
-  var csrf_token = $(this).find("[name='_csrf_token']").val()
+  event.preventDefault();
+  var csrf_token = $(this).find("[name='_csrf_token']").val();
   auth2.grantOfflineAccess().then(signInCallback.bind(this, csrf_token));
 });
 
-
 $('#logoutForm').on('submit', function(event) {
-  event.preventDefault()
-  signOut()
-  var csrf_token = $(this).find("[name='_csrf_token']").val()
+  event.preventDefault();
+  signOut();
+  var csrf_token = $(this).find("[name='_csrf_token']").val();
   let data = new FormData();
-  data.append('_csrf_token', csrf_token)
+  data.append('_csrf_token', csrf_token);
 
   $.ajax({
     type: 'POST',

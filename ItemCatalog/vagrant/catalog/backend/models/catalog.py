@@ -14,6 +14,14 @@ class Catalog(Base):
 
 
     def to_json(self, show_items=True):
+        """Converts Catalog into json
+
+        Args:
+            show_items(boolean): Whether to include all the catalogs items
+
+        Returns:
+            dict object of the catalog
+        """
         json = {
             'id': self.id,
             'name': self.name,
@@ -28,12 +36,18 @@ class Catalog(Base):
 
     @validates('name')
     def validates_name(self, key, name):
+        """Validates the name field before update and create
+        Raises:
+            Exception: if name length is less the 3 chars
+        """
         if len(name) < 3:
             raise Exception("Name must be atleast 3 chars")
         return name
 
+
     @classmethod
     def create(cls, name):
+        """Creates and saves a new catalog"""
         catalog = None
         error = None
         try:
@@ -41,11 +55,14 @@ class Catalog(Base):
             DBSession.add(catalog)
             DBSession.commit()
         except Exception as e:
+            DBSession.rollback()
             error = str(e)
         return catalog, error
 
+
     @classmethod
     def edit(cls, id, name):
+        """Edits and saves a new catalog"""
         catalog = None
         error = None
         try:
@@ -57,10 +74,14 @@ class Catalog(Base):
             error = str(e)
         return catalog, error
 
+
     @classmethod
     def get_all(cls):
+        """Gets all the catalogs"""
         return DBSession.query(cls).all()
+
 
     @classmethod
     def find_by_id(cls, id):
+        """Finds catalog by id"""
         return DBSession.query(cls).filter(cls.id == id).first()

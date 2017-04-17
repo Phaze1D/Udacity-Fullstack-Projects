@@ -12,6 +12,12 @@ users_app = Blueprint('users', __name__)
 @users_app.route('/google-signin',  methods=['POST'])
 @check_csrf
 def google_signin():
+    """Function that logs in a user and adds there info to the database
+    if the haven't already been added.
+
+    Returns:
+        Newly created csrf_token
+    """
     credentials = client.credentials_from_clientsecrets_and_code(
         'backend/config/google_data.json',
         ['profile', 'email'],
@@ -28,5 +34,11 @@ def google_signin():
 @users_app.route('/logout', methods=['POST'])
 @check_csrf
 def logout():
+    """Function that removes a user's id from the session causing them to
+    be logout
+
+    Returns:
+        Newly created csrf_token
+    """
     session.pop('user', None)
     return jsonify(csrf_token = generate_csrf_token())

@@ -9,18 +9,23 @@ catalogs_app = Blueprint('catalogs', __name__)
 
 @catalogs_app.route('/catalogs')
 def index():
+    """Function that returns html template with all the catalogs"""
     catalogs = Catalog.get_all()
     return render_template('catalogs/index.html', catalogs=catalogs)
 
 
 @catalogs_app.route('/catalog')
 def create():
+    """Function that returns html template with the catalog create form"""
     return render_template('catalogs/create.html', catalog=None, error='')
 
 
 @catalogs_app.route('/catalog', methods=['POST'])
 @check_csrf
 def new():
+    """Function that adds a new catalog into the database or rerenders
+    the catalog create form
+    """
     catalog, error = Catalog.create(name=request.form.get('name'))
     if error:
         return render_template('catalogs/create.html',
@@ -33,6 +38,7 @@ def new():
 @catalogs_app.route('/catalog/<id>/edit')
 @catalog_exists()
 def edit(id):
+    """Function that returns html template with the catalog edit form"""
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/edit.html', catalog=catalog)
 
@@ -41,6 +47,9 @@ def edit(id):
 @check_csrf
 @catalog_exists()
 def update(id):
+    """Function that updates a catalog into the database or rerenders
+    the catalog edit form
+    """
     catalog, error = Catalog.edit(id=id, name=request.form.get('name'))
     if error:
         return render_template('catalogs/edit.html',
@@ -53,5 +62,6 @@ def update(id):
 @catalogs_app.route('/catalog/<id>')
 @catalog_exists()
 def get(id):
+    """Function that returns html template with the catalog information"""
     catalog = Catalog.find_by_id(id)
     return render_template('catalogs/get.html', catalog=catalog, items=catalog.items)

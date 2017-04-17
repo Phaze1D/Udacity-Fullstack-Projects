@@ -4,6 +4,17 @@ from backend.models import Catalog
 
 
 def catalog_exists(json=False):
+    """ Decorator function that checks if a catalog id is valid
+
+    Note:
+        Function should be use whenever a catalog id is pass
+
+    Args:
+        json(boolean): Whether to return a json obect or redirect
+
+    Returns:
+        A redirect or a jsonify object
+    """
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):

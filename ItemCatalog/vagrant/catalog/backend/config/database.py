@@ -10,4 +10,7 @@ DBSession = scoped_session(sessionmaker(bind=engine))
 
 
 def create_schema():
+    """ Creates the database schema.
+        Should be called after all models are implemented
+    """
     Base.metadata.create_all(engine)

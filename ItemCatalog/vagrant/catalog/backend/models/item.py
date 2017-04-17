@@ -18,6 +18,15 @@ class Item(Base):
 
 
     def to_json(self, show_user=True, show_catalog=True):
+        """Converts Catalog into json
+
+        Args:
+            show_user(boolean): Whether to include the user
+            show_catalog(boolean): Whether to include the catalog
+
+        Returns:
+            dict object of the item
+        """
         json = {
             'id': self.id,
             'name': self.name,
@@ -44,30 +53,55 @@ class Item(Base):
 
     @validates('name')
     def validates_name(self, key, name):
+        """Validates the name field before update and create
+
+        Raises:
+            Exception: if name length is less the 3 chars
+        """
         if not name or len(name) < 3:
             raise Exception("Name must be atleast 3 chars")
         return name
 
+
     @validates('description')
     def validates_description(self, key, description):
+        """Validates the description field before update and create
+
+        Raises:
+            Exception: if description length is less the 20 chars
+        """
         if not description or len(description) < 20:
             raise Exception("Description must be atleast 20 chars")
         return description
 
+
     @validates('catalog')
     def validates_catalog(self, key, catalog):
+        """Validates the catalog field before update and create
+
+        Raises:
+            Exception: if catalog is not found
+        """
         if not catalog:
             raise Exception('catalog not found')
         return catalog
 
+
     @validates('user')
     def validates_user(self, key, user):
+        """Validates the user field before update and create
+
+        Raises:
+            Exception: if user is not found
+        """
         if not user:
             raise Exception('user not found')
         return user
 
+
     @classmethod
     def create(cls, name, description, catalog, user):
+        """Creates and saves a new item"""
         item = None
         error = None
         try:
@@ -84,6 +118,7 @@ class Item(Base):
 
     @classmethod
     def edit(cls, id, name, description, catalog):
+        """Edits and saves a new item"""
         item = None
         error = None
         try:
@@ -99,13 +134,16 @@ class Item(Base):
 
     @classmethod
     def find_by_id(cls, id):
+        """Finds item by id"""
         return DBSession.query(cls).filter(cls.id == id).first()
 
     @classmethod
     def get_all(cls):
+        """Gets all the items"""
         return DBSession.query(cls).all()
 
     @classmethod
     def delete(cls, item):
+        """Deletes an item"""
         DBSession.delete(item)
         DBSession.commit()

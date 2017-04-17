@@ -7,6 +7,11 @@ items_api_app = Blueprint('items_api', __name__)
 
 @items_api_app.route('/api/items')
 def index():
+    """Items api function that returns json array of all the items
+
+    Returns:
+        json: object with an array of all the items
+    """
     items = [item.to_json() for item in Item.get_all()]
     return jsonify(items=items)
 
@@ -14,5 +19,10 @@ def index():
 @items_api_app.route('/api/item/<id>')
 @item_exists(json=True)
 def get(id):
+    """Items api function that returns one item as a json object
+
+    Returns:
+        json: one item json object
+    """
     item=Item.find_by_id(id)
     return jsonify(item.to_json())

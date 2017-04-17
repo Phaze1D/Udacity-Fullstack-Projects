@@ -4,12 +4,18 @@ import uuid
 import logging
 
 def generate_csrf_token():
+    """Generates a new csrf token and adds it to the session
+
+    Returns:
+        Newly created csrf token
+    """
     if '_csrf_token' not in session:
         session['_csrf_token'] = str(uuid.uuid4())
     return session['_csrf_token']
 
 
 def check_csrf(f):
+    """Deecorator function that check if a csrf token is valid"""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if request.method == "POST":
