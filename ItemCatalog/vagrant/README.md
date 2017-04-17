@@ -36,3 +36,10 @@ $ vagrant ssh
 /api/items                    GET
 /api/item/<id>                GET
 ```
+
+### User Routes
+These routes are only meant to be called by the google api
+```
+/google-signin                POST
+/logout                       POST
+```
