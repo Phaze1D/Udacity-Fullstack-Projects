@@ -1,6 +1,6 @@
 # Catalog Project
 
-Project for [Udacity Fullstack Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004) that implements a simple catalog and items page. This project is mostly focuses on the backend implementation using the [Flask Framework](http://flask.pocoo.org/) and [SqlAlchemy ORM](https://www.sqlalchemy.org/).
+Project for [Udacity Fullstack Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004) that implements a simple catalog and items page. This project is mostly focuses on the backend implementation using the [Flask Framework](http://flask.pocoo.org/) and [SqlAlchemy ORM](https://www.sqlalchemy.org/). It also utilizes [Google's Sign In API](https://developers.google.com/identity/sign-in/web/server-side-flow) on both the backend and the frontend to maximize user security
 
 
 ### Getting Started
