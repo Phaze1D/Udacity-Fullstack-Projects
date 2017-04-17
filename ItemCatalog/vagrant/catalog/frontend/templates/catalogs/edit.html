@@ -6,14 +6,13 @@
   <form class="" action="{{url_for('catalogs.update', id=catalog.id)}}" method="post">
     <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <input name="id" type="hidden" value="{{ catalog.id }}">
-    <label for="name">
-      Name
-      <input type="text" name="name" value="{{catalog.name}}">
-    </label>
-    <p>{{error}}</p>
-    <input type="submit" name="" value="Edit">
+    <label for="name"> Name </label>
+    <input type="text" name="name" value="{{catalog.name}}">
+    <p class="error">{{error}}</p>
+    <input class="button-primary" type="submit" name="" value="Save">
+    <a class="button" href="{{url_for('catalogs.index')}}">Cancel</a>
   </form>
-  <a href="{{url_for('catalogs.index')}}">Cancel</a>
+
 </div>
 
 {% endblock %}

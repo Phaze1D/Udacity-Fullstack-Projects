@@ -1,20 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class="">
-  <a href="{{url_for('catalogs.index')}}">All Catalogs</a>
-  <a href="{{url_for('items.index')}}">All Items</a>
-  <h1>{{ catalog.name }} Items</h1>
-  <a href="{{url_for('items.create', catalog_id=catalog.id)}}">Add Item</a>
+<div>
+  <div class="upper">
+    <h1>{{ catalog.name }} Items</h1>
+    <a class="button button-primary" href="{{url_for('items.create', catalog_id=catalog.id)}}">Add Item</a>
+  </div>
   <ul>
     {% for item in items %}
       <li>
         <a href="{{url_for('items.get', id=item.id)}}">{{ item.name }}</a>
-
-        {% if session.get('user') == item.user_id %}
-        <a href="{{url_for('items.edit', id=item.id)}}">Edit</a>
-        <a href="{{url_for('items.delete', id=item.id)}}">Delete</a>
-        {% endif %}
       </li>
     {% endfor %}
   </ul>

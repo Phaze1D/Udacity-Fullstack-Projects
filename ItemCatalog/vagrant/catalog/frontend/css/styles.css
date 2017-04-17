@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  padding: 16px;
+}
+
+h1 {
+  margin: 16px 34px 16px 0;
+  text-transform: capitalize;
+}
+
+main {
+  padding: 0 16px;
+  max-width: 800px;
+}
+
+input[type='text'], textarea, select {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.upper {
+  display: flex;
+  align-items: center;
+}
+
+.upper a {
+  margin: 0;
+}
+
+.nav-left {
+  margin: 0 10px;
+}
+
+.nav-right {
+  margin: 0 10px 0 auto;
+}
+
+.error {
+  margin: 0 0 16px;
+  padding: 0 16px;
+  color: #F44336;
+  background-color: rgba(244, 67, 54, 0.3);
+  font-size: 18px;
+}
+
+.button-red {
+  border: 1px solid #F44336 !important;
+  background-color: #F44336 !important;
+}
+
+#signinForm {
+  padding: 0;
+}
+
+#signinForm input {
+  margin-bottom: 0;
+}
+
+#logoutForm {
+  padding: 0;
+}
+
+#logoutForm input {
+  margin-bottom: 0;
+}

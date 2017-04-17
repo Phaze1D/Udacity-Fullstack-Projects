@@ -2,17 +2,15 @@
 {% block body %}
 
 <div class="">
-  <a href="{{url_for('catalogs.index')}}">All Catalogs</a>
-  <a href="{{url_for('items.index')}}">All Items</a>
-
-  <h1>Delete {{item.name}}</h1>
-  <p>Are You Sure</p>
+  <h5>Are you sure you want to delete - {{item.name}}</h5>
 
   <form class="" action="{{url_for('items.delete', id=item.id)}}" method="post">
     <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
-    <input type="submit" name="" value="Delete">
+    <a class="button" href="{{url_for('items.get', id=item.id)}}">Cancel</a>
+    <input class="button-primary button-red" type="submit" name="" value="Delete">
+
   </form>
-  <a href="{{url_for('items.get', id=item.id)}}">Cancel</a>
+
 </div>
 
 {% endblock %}
