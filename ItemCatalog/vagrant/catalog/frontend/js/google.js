@@ -22,7 +22,7 @@ function signInCallback(csrf_token, authResult) {
 
     $.ajax({
       type: 'POST',
-      url: '/google-signin',
+      url: '/googlesignin',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },

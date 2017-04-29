@@ -9,7 +9,7 @@ import httplib2
 users_app = Blueprint('users', __name__)
 
 
-@users_app.route('/google-signin',  methods=['POST'])
+@users_app.route('/googlesignin',  methods=['POST'])
 @check_csrf
 def google_signin():
     """Function that logs in a user and adds there info to the database
