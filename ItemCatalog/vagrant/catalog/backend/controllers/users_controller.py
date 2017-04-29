@@ -18,8 +18,8 @@ def google_signin():
     Returns:
         Newly created csrf_token
     """
-    credentials = client.credentials_from_clientsecrets_and_code(
-        'backend/config/google_data.json',
+    credentials = client.credensrtials_from_clientsecrets_and_code(
+        '/var/www/Udacity-Fullstack-Projects/ItemCatalog/vagrant/catalog/backend/config/google_data.json',
         ['profile', 'email'],
         request.form.get('code'))
 
