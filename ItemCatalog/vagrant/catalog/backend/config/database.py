@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-engine = create_engine("postgresql+psycopg2://catalog:/catalog")
+engine = create_engine("postgresql+psycopg2://catalog:@/itemscatalogs")
 Base = declarative_base()
 DBSession = scoped_session(sessionmaker(bind=engine))
 
