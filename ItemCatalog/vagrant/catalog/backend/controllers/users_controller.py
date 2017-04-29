@@ -23,10 +23,10 @@ def google_signin():
         ['profile', 'email'],
         request.form.get('code'))
 
-    user = User.find_by_email(credentials.id_token['email'])
-    if user == None:
-        user = User.create(credentials.id_token['email'])
-    login(user)
+    # user = User.find_by_email(credentials.id_token['email'])
+    # if user == None:
+    #     user = User.create(credentials.id_token['email'])
+    # login(user)
 
     return jsonify(csrf_token = generate_csrf_token())
 
