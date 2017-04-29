@@ -10,7 +10,7 @@ class Catalog(Base):
     id      = Column(Integer, primary_key=True)
     name    = Column(String(250), unique=True, nullable=False)
     created = Column(DateTime, default=func.now())
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     user    = relationship("User", back_populates="catalogs", foreign_keys=[user_id])
     items   = relationship("Item", back_populates="catalog")
 

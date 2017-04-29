@@ -12,7 +12,7 @@ class Item(Base):
     description = Column(String(250), nullable=False)
     created     = Column(DateTime, default=func.now())
     catalog_id  = Column(Integer, ForeignKey('catalog.id'))
-    user_id     = Column(Integer, ForeignKey('user.id'))
+    user_id     = Column(Integer, ForeignKey('users.id'))
     catalog     = relationship("Catalog", back_populates="items", foreign_keys=[catalog_id])
     user        = relationship("User", back_populates="items", foreign_keys=[user_id])
 
