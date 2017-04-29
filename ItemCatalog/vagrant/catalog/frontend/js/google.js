@@ -30,6 +30,11 @@ function signInCallback(csrf_token, authResult) {
       success: function(result) {
         window.location.reload(false);
       },
+      error: function(xhr, textStatus, errorThrown){
+       console.log(xhr);
+       console.log(textStatus);
+       console.log(errorThrown);
+      },
       processData: false,
       data: data
     });
