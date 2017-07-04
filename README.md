@@ -1,12 +1,6 @@
 # Udacity Fullstack Nanodegree Projects
 These are the projects that I completed for the [Udacity Fullstack Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004).
 
-### Certificate of Completion
-
-<p align="center">
-<img src="readme_imgs/udacity_cert.png" height="350px"/>
-</p>
-
 
 ### Projects
 
@@ -17,6 +11,13 @@ These are the projects that I completed for the [Udacity Fullstack Nanodegree](h
 5. [Build an Item Catalog](ItemCatalog/)
 6. **[Neighborhood Map](https://github.com/Phaze1D/Google_Zomato_Maps)**
 7. [Linux Server Configuration](LinuxConfigProject/)
+
+
+### Certificate of Completion
+<p align="center">
+<img src="readme_imgs/udacity_cert.png" height="350px"/>
+</p>
+
 
 
 #### Dates
