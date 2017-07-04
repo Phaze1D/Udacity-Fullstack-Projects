@@ -3,9 +3,9 @@ These are the projects that I completed for the [Udacity Fullstack Nanodegree](h
 
 ### Certificate of Completion
 
-<div style="text-align: center">
+<p align="center">
 <img src="readme_imgs/udacity_cert.png" height="350px"/>
-</div>
+</p>
 
 
 ### Projects
