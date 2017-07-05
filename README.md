@@ -2,7 +2,7 @@
 These are the projects that I completed for the [Udacity Fullstack Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004).
 
 
-### Projects
+## Projects
 
 1. [MovieTrailerWebsite](MovieTrailerWebsite/)
 2. [Portfolio Site](https://github.com/Phaze1D/Portfolio)
@@ -13,7 +13,7 @@ These are the projects that I completed for the [Udacity Fullstack Nanodegree](h
 7. [Linux Server Configuration](LinuxConfigProject/)
 
 
-### Certificate of Completion
+## Certificate of Completion
 <p align="left">
 <img src="readme_imgs/udacity_cert.png" height="350px"/>
 </p>
