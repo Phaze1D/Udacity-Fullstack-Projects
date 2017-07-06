@@ -1,7 +1,7 @@
 # Tournament Project
 > Udacity Fullstack Nanodegree Project 4
 
-This project is a TDD (Test Driven development) where I was given a test file, and I had to create a PostgreSQL database and raw SQL queries that passed all the required tests. The queries that I had to create were INSERT, UPDATE, DELETE, JOIN, SELECT. The database consists of 2 tables (players, matches) and 1 view (standings). The tests can be found in the  [tournament_test.py](vagrant/tournament/tournament_test.py) file.
+This project is a TDD (Test Driven Development) project, where I was given a test file, and I had to create a PostgreSQL database and raw SQL queries that passed all the required tests. The queries that I had to create were INSERT, UPDATE, DELETE, JOIN, SELECT. The database consists of 2 tables (players, matches) and 1 view (standings). The tests can be found in the  [tournament_test.py](vagrant/tournament/tournament_test.py) file.
 
 ## Database Structure
 
